@@ -13,7 +13,7 @@ fn sort(highest_calorie: u32, (one, two, three): (u32, u32, u32)) -> (u32, u32, 
     else { (one, two, three) }
 }
 
-pub fn day1() -> () {
+pub fn day1() {
     let file_path = env::current_dir().unwrap().join(FILE_PATH);
 
     let file_contents = fs::read_to_string(file_path).unwrap();
