@@ -3,11 +3,17 @@ use std::fs;
 
 const FILE_PATH: &str = "src/day2/input.txt";
 
+const ROCK_SCORE: u32 = 1;
+const PAPER_SCORE: u32 = 2;
+const SCISSORS_SCORE: u32 = 3;
+const WINNING_BONUS: u32 = 6;
+const DRAW_BONUS: u32 = 3;
+
 fn raw_score(you: char) -> u32 {
     match you {
-        'X' => 1,
-        'Y' => 2,
-        'Z' => 3,
+        'X' => ROCK_SCORE,
+        'Y' => PAPER_SCORE,
+        'Z' => SCISSORS_SCORE,
         _ => 0,
     }
 }
@@ -16,9 +22,9 @@ fn result(players: (char, char)) -> u32 {
     let (opponent, you) = players;
     match (opponent, you) {
         //win
-        ('A', 'Y') | ('B', 'Z') | ('C', 'X') => raw_score(you) + 6,
+        ('A', 'Y') | ('B', 'Z') | ('C', 'X') => raw_score(you) + WINNING_BONUS,
         //draw
-        ('A', 'X') | ('B', 'Y') | ('C', 'Z') => raw_score(you) + 3,
+        ('A', 'X') | ('B', 'Y') | ('C', 'Z') => raw_score(you) + DRAW_BONUS,
 
         _ => raw_score(you),
     }
