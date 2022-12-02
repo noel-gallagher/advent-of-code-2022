@@ -77,24 +77,8 @@ fn interpret(game: (char, char)) -> (char, char) {
     }
 }
 
-fn part_b(file_contents: &str) -> u32 {
-    file_contents
-        .split('\n')
-        .map(|line| {
-            let x: u32 = result(interpret(parse_line(line)));
-            x
-        })
-        .sum::<u32>()
-}
-
-fn part_a(file_contents: &str) -> u32 {
-    file_contents
-        .split('\n')
-        .map(|line| {
-            let x: u32 = result(parse_line(line));
-            x
-        })
-        .sum::<u32>()
+fn solve_part(file_contents: &str, operation: fn(&str) -> u32) -> u32 {
+    file_contents.split('\n').map(operation).sum::<u32>()
 }
 
 pub fn day2() {
@@ -102,6 +86,9 @@ pub fn day2() {
 
     let file_contents = fs::read_to_string(file_path).unwrap();
 
-    println!("Day 2 - part A: {}", part_a(&file_contents));
-    println!("Day 2 - part B: {}", part_b(&file_contents));
+    let part_a = |line: &str| result(parse_line(line));
+    let part_b = |line: &str| result(interpret(parse_line(line)));
+
+    println!("Day 2 - part A: {}", solve_part(&file_contents, part_a));
+    println!("Day 2 - part B: {}", solve_part(&file_contents, part_b));
 }
