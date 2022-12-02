@@ -37,19 +37,71 @@ fn parse_line(line: &str) -> (char, char) {
 
     (' ', ' ')
 }
+fn win(opponent: char) -> char {
+    match opponent {
+        'A' => 'Y',
+        'B' => 'Z',
+        'C' => 'X',
+        _ => opponent,
+    }
+}
+
+fn draw(opponent: char) -> char {
+    match opponent {
+        'A' => 'X',
+        'B' => 'Y',
+        'C' => 'Z',
+        _ => opponent,
+    }
+}
+
+fn lose(opponent: char) -> char {
+    match opponent {
+        'A' => 'Z',
+        'B' => 'X',
+        'C' => 'Y',
+        _ => opponent,
+    }
+}
+
+fn interpret(game: (char, char)) -> (char, char) {
+    let (opponent, you) = game;
+    match you {
+        //I should lose
+        'X' => (opponent, lose(opponent)),
+        //I should draw
+        'Y' => (opponent, draw(opponent)),
+        //I need to win
+        'Z' => (opponent, win(opponent)),
+        _ => game,
+    }
+}
+
+fn part_b(file_contents: &str) -> u32 {
+    file_contents
+        .split('\n')
+        .map(|line| {
+            let x: u32 = result(interpret(parse_line(line)));
+            x
+        })
+        .sum::<u32>()
+}
+
+fn part_a(file_contents: &str) -> u32 {
+    file_contents
+        .split('\n')
+        .map(|line| {
+            let x: u32 = result(parse_line(line));
+            x
+        })
+        .sum::<u32>()
+}
 
 pub fn day2() {
     let file_path = env::current_dir().unwrap().join(FILE_PATH);
 
     let file_contents = fs::read_to_string(file_path).unwrap();
 
-    let result: u32 = file_contents
-        .split('\n')
-        .map(|line| {
-            let x: u32 = result(parse_line(line));
-            x
-        })
-        .sum::<u32>();
-
-    println!("{}", result);
+    println!("Day 2 - part A: {}", part_a(&file_contents));
+    println!("Day 2 - part B: {}", part_b(&file_contents));
 }
