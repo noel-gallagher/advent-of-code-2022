@@ -95,6 +95,6 @@ pub fn day2() {
     let part_a = |line: &str| result(parse_line(line));
     let part_b = |line: &str| result(interpret(parse_line(line)));
 
-    println!("Day 2 - part A: {}", solve_part(&file_contents, part_a));
-    println!("Day 2 - part B: {}", solve_part(&file_contents, part_b));
+    println!("Day 2 - part 1: {}", solve_part(&file_contents, part_a));
+    println!("Day 2 - part 2: {}", solve_part(&file_contents, part_b));
 }

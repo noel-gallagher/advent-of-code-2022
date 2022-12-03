@@ -33,6 +33,6 @@ pub fn day1() {
             });
     let sum = highest + second_highest + third_highest;
 
-    println!("Day 1 - Part A: {}", highest);
-    println!("Day 1 - Part B: {}", sum);
+    println!("Day 1 - Part 1: {}", highest);
+    println!("Day 1 - Part 2: {}", sum);
 }
