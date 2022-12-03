@@ -15,17 +15,17 @@ fn compute_duplicate(items: (&str, &str)) -> u32 {
     for c in compartment_one.chars() {
         let char_value = c as u32;
         if char_value > START_OF_ALPHA {
-            let location = 1 << char_value - START_OF_ALPHA;
-            duplicate = duplicate | location;
+            let location = 1 << (char_value - START_OF_ALPHA);
+            duplicate |= location;
         }
     }
 
     for c in compartment_two.chars() {
         let char_value = c as u32;
         if char_value > START_OF_ALPHA {
-            let location = 1 << char_value - START_OF_ALPHA;
+            let location = 1 << (char_value - START_OF_ALPHA);
             if (duplicate & location) > 0 {
-                duplicate = duplicate & (!location);
+                duplicate &= !location;
                 //lower case
                 if char_value > LOWER_CASE_RANGE {
                     total += char_value - LOWER_CASE_RANGE
@@ -38,7 +38,7 @@ fn compute_duplicate(items: (&str, &str)) -> u32 {
         }
     }
 
-    return total
+    total
 }
 
 fn split_items(compartment: &str) -> (&str, &str) {
@@ -49,9 +49,7 @@ fn split_items(compartment: &str) -> (&str, &str) {
 fn solve_part(file_contents: &str) -> u32 {
     file_contents
         .split('\n')
-        .map(|compartment| {
-            compute_duplicate(split_items(compartment))
-        })
+        .map(|compartment| compute_duplicate(split_items(compartment)))
         .sum()
 }
 
@@ -63,4 +61,3 @@ pub fn day3() {
     println!("Day 3 - part A: {}", solve_part(&file_contents));
     // println!("Day 3 - part B: {}", solve_part(&file_contents, ));
 }
-//
