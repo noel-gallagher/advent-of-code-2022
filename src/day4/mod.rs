@@ -3,7 +3,9 @@ use std::fs;
 
 const FILE_PATH: &str = "src/day4/input.txt";
 
-fn solve_part(file_contents: &str) -> u32 {
+type Ranges = ((u32, u32), (u32, u32));
+
+fn solve_part(file_contents: &str, part_to_solve: fn(Ranges) -> bool) -> u32 {
     file_contents
         .lines()
         .map(|line| {
@@ -28,12 +30,29 @@ fn solve_part(file_contents: &str) -> u32 {
                     }
                 });
 
-            let (range_one, range_two) = (state.0 .0, state.0 .1);
-
-            (range_one.0 <= range_two.0 && range_two.1 <= range_one.1
-                || range_two.0 <= range_one.0 && range_one.1 <= range_two.1) as u32
+            let ranges = (state.0 .0, state.0 .1);
+            part_to_solve(ranges) as u32
         })
         .sum()
+}
+
+fn part_one() -> fn(Ranges) -> bool {
+    |ranges: Ranges| {
+        let (range_one, range_two) = (ranges.0, ranges.1);
+
+        range_one.0 <= range_two.0 && range_two.1 <= range_one.1
+            || range_two.0 <= range_one.0 && range_one.1 <= range_two.1
+    }
+}
+
+fn part_two() -> fn(Ranges) -> bool {
+    |ranges: Ranges| {
+        let (range_one, range_two) = (ranges.0, ranges.1);
+        range_one.0 <= range_two.0 && range_two.0 <= range_one.1
+            || range_one.0 <= range_two.1 && range_two.1 <= range_one.1
+            || range_two.0 <= range_one.0 && range_one.0 <= range_two.1
+            || range_two.0 <= range_one.1 && range_one.1 <= range_two.1
+    }
 }
 
 pub fn day4() {
@@ -41,6 +60,6 @@ pub fn day4() {
 
     let file_contents = fs::read_to_string(file_path).unwrap();
 
-    println!("Day 4 - part 1: {}", solve_part(&file_contents));
-    // println!("Day 4 - part 2: {}", solve_part(&file_contents));
+    println!("Day 4 - part 1: {}", solve_part(&file_contents, part_one()));
+    println!("Day 4 - part 2: {}", solve_part(&file_contents, part_two()));
 }
