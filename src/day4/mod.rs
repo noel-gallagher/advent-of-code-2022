@@ -10,9 +10,9 @@ fn solve_part(file_contents: &str, part_to_solve: fn(Ranges) -> bool) -> u32 {
         .lines()
         .map(|line| {
             let state = line
-                .split(',') //split each
+                .split(',')
                 .flat_map(|pair| {
-                    pair.split('-') // get range of items
+                    pair.split('-')
                         .take(2)
                         .map(|number_as_str| number_as_str.parse::<u32>().unwrap())
                 })
