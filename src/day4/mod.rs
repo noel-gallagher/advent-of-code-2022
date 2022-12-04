@@ -16,7 +16,7 @@ fn solve_part(file_contents: &str, part_to_solve: fn(Ranges) -> bool) -> u32 {
                         .take(2)
                         .map(|number_as_str| number_as_str.parse::<u32>().unwrap())
                 })
-                .take(4) // iter (a,b,c,d)
+                .take(4)
                 .fold((((0, 0), (0, 0)), 1), |acc, item| {
                     let (ranges, iter) = acc;
 
