@@ -63,3 +63,27 @@ pub fn day4() {
     println!("Day 4 - part 1: {}", solve_part(&file_contents, part_one()));
     println!("Day 4 - part 2: {}", solve_part(&file_contents, part_two()));
 }
+
+#[cfg(test)]
+mod test {
+    use crate::day4::{part_one, part_two, solve_part};
+
+    const EXAMPLE_INPUT: &str = "2-4,6-8
+2-3,4-5
+5-7,7-9
+2-8,3-7
+6-6,4-6
+2-6,4-8";
+
+    #[test]
+    fn test_part_one() {
+        let expected_value = 2;
+        assert_eq!(solve_part(EXAMPLE_INPUT, part_one()), expected_value)
+    }
+
+    #[test]
+    fn test_part_two() {
+        let expected_value = 4;
+        assert_eq!(solve_part(EXAMPLE_INPUT, part_two()), expected_value)
+    }
+}
