@@ -87,14 +87,42 @@ fn solve_part(file_contents: &str, operation: fn(&str) -> u32) -> u32 {
     file_contents.split('\n').map(operation).sum::<u32>()
 }
 
+fn part_one(input: &str) -> u32 {
+    let part_one = |line: &str| result(parse_line(line));
+    solve_part(input, part_one)
+}
+
+fn part_two(input: &str) -> u32 {
+    let part_two = |line: &str| result(interpret(parse_line(line)));
+    solve_part(input, part_two)
+}
+
 pub fn day2() {
     let file_path = env::current_dir().unwrap().join(FILE_PATH);
 
     let file_contents = fs::read_to_string(file_path).unwrap();
 
-    let part_a = |line: &str| result(parse_line(line));
-    let part_b = |line: &str| result(interpret(parse_line(line)));
+    println!("Day 2 - part 1: {}", part_one(&file_contents));
+    println!("Day 2 - part 1: {}", part_two(&file_contents));
+}
 
-    println!("Day 2 - part 1: {}", solve_part(&file_contents, part_a));
-    println!("Day 2 - part 2: {}", solve_part(&file_contents, part_b));
+#[cfg(test)]
+mod test {
+    use crate::day2::{part_one, part_two};
+
+    const EXAMPLE_INPUT: &str = "A Y
+B X
+C Z";
+
+    #[test]
+    fn test_part_one() {
+        let expected_value = 15;
+        assert_eq!(part_one(EXAMPLE_INPUT), expected_value)
+    }
+
+    #[test]
+    fn test_part_two() {
+        let expected_value = 12;
+        assert_eq!(part_two(EXAMPLE_INPUT), expected_value)
+    }
 }
