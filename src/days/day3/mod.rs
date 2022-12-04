@@ -1,12 +1,21 @@
-use std::env;
-use std::fs;
-
-const FILE_PATH: &str = "src/day3/input.txt";
+use crate::days::Day;
 
 const START_OF_ALPHA: u32 = 64;
 const UPPER_CASE_RANGE: u32 = 25;
 const UPPER_CASE_PRIORITY: u32 = 27;
 const SUB_LOWER_CASE_PRIORITY: u32 = 31;
+
+pub struct DayThree;
+
+impl Day for DayThree {
+    fn solve_part_one(&self, input: &str) -> u32 {
+        solve_part_1(input)
+    }
+
+    fn solve_part_two(&self, input: &str) -> u32 {
+        solve_part_2(input)
+    }
+}
 
 fn set_bits(compartment: &str) -> u64 {
     let mut mask: u64 = 0;
@@ -75,18 +84,9 @@ fn solve_part_1(file_contents: &str) -> u32 {
         .sum()
 }
 
-pub fn day3() {
-    let file_path = env::current_dir().unwrap().join(FILE_PATH);
-
-    let file_contents = fs::read_to_string(file_path).unwrap();
-
-    println!("Day 3 - part 1: {}", solve_part_1(&file_contents));
-    println!("Day 3 - part 2: {}", solve_part_2(&file_contents));
-}
-
 #[cfg(test)]
 mod test {
-    use crate::day3::{solve_part_1, solve_part_2};
+    use crate::days::day3::{solve_part_1, solve_part_2};
 
     const EXAMPLE_INPUT: &str = "vJrwpWtwJgWrhcsFMMfFFhFp
 jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL

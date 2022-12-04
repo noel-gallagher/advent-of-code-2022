@@ -1,9 +1,19 @@
-use std::env;
-use std::fs;
+use crate::days::Day;
 
 const SINGLE_ELF_DELIM: &str = "\n\n";
 const ITEM_DELIM: &str = "\n";
-const FILE_PATH: &str = "src/day1/input.txt";
+
+pub struct DayOne;
+
+impl Day for DayOne {
+    fn solve_part_one(&self, input: &str) -> u32 {
+        part_one(input)
+    }
+
+    fn solve_part_two(&self, input: &str) -> u32 {
+        part_two(input)
+    }
+}
 
 fn sort(highest_calorie: u32, (one, two, three): (u32, u32, u32)) -> (u32, u32, u32) {
     if highest_calorie > one {
@@ -36,18 +46,9 @@ fn part_two(input: &str) -> u32 {
     highest + second_highest + third_highest
 }
 
-pub fn day1() {
-    let file_path = env::current_dir().unwrap().join(FILE_PATH);
-
-    let file_contents = fs::read_to_string(file_path).unwrap();
-
-    println!("Day 1 - Part 1: {}", part_one(&file_contents));
-    println!("Day 1 - Part 2: {}", part_two(&file_contents));
-}
-
 #[cfg(test)]
 mod test {
-    use crate::day1::{part_one, part_two};
+    use crate::days::day1::{part_one, part_two};
 
     const TEST_INPUT: &str = "1000
 2000

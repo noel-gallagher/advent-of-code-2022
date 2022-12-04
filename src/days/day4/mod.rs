@@ -1,7 +1,16 @@
-use std::env;
-use std::fs;
+use crate::days::Day;
 
-const FILE_PATH: &str = "src/day4/input.txt";
+pub struct DayFour;
+
+impl Day for DayFour {
+    fn solve_part_one(&self, input: &str) -> u32 {
+        solve_part(input, part_one())
+    }
+
+    fn solve_part_two(&self, input: &str) -> u32 {
+        solve_part(input, part_two())
+    }
+}
 
 type Ranges = ((u32, u32), (u32, u32));
 
@@ -55,18 +64,9 @@ fn part_two() -> fn(Ranges) -> bool {
     }
 }
 
-pub fn day4() {
-    let file_path = env::current_dir().unwrap().join(FILE_PATH);
-
-    let file_contents = fs::read_to_string(file_path).unwrap();
-
-    println!("Day 4 - part 1: {}", solve_part(&file_contents, part_one()));
-    println!("Day 4 - part 2: {}", solve_part(&file_contents, part_two()));
-}
-
 #[cfg(test)]
 mod test {
-    use crate::day4::{part_one, part_two, solve_part};
+    use crate::days::day4::{part_one, part_two, solve_part};
 
     const EXAMPLE_INPUT: &str = "2-4,6-8
 2-3,4-5

@@ -1,13 +1,22 @@
-use std::env;
-use std::fs;
-
-const FILE_PATH: &str = "src/day2/input.txt";
+use crate::days::Day;
 
 const ROCK_SCORE: u32 = 1;
 const PAPER_SCORE: u32 = 2;
 const SCISSORS_SCORE: u32 = 3;
 const WINNING_BONUS: u32 = 6;
 const DRAW_BONUS: u32 = 3;
+
+pub struct DayTwo;
+
+impl Day for DayTwo {
+    fn solve_part_one(&self, input: &str) -> u32 {
+        part_one(input)
+    }
+
+    fn solve_part_two(&self, input: &str) -> u32 {
+        part_two(input)
+    }
+}
 
 fn raw_score(you: char) -> u32 {
     match you {
@@ -97,18 +106,9 @@ fn part_two(input: &str) -> u32 {
     solve_part(input, part_two)
 }
 
-pub fn day2() {
-    let file_path = env::current_dir().unwrap().join(FILE_PATH);
-
-    let file_contents = fs::read_to_string(file_path).unwrap();
-
-    println!("Day 2 - part 1: {}", part_one(&file_contents));
-    println!("Day 2 - part 1: {}", part_two(&file_contents));
-}
-
 #[cfg(test)]
 mod test {
-    use crate::day2::{part_one, part_two};
+    use crate::days::day2::{part_one, part_two};
 
     const EXAMPLE_INPUT: &str = "A Y
 B X
