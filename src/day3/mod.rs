@@ -61,7 +61,7 @@ fn solve_part_2(file_contents: &str) -> u32 {
             let (elf1, elf2, elf3) = (
                 set_bits(compartments[0]),
                 set_bits(compartments[1]),
-                set_bits(compartments[2])
+                set_bits(compartments[2]),
             );
             compute_sum_of_duplicates(elf1 & elf2 & elf3)
         })
