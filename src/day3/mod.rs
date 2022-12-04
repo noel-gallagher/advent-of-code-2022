@@ -83,3 +83,27 @@ pub fn day3() {
     println!("Day 3 - part 1: {}", solve_part_1(&file_contents));
     println!("Day 3 - part 2: {}", solve_part_2(&file_contents));
 }
+
+#[cfg(test)]
+mod test {
+    use crate::day3::{solve_part_1, solve_part_2};
+
+    const EXAMPLE_INPUT: &str = "vJrwpWtwJgWrhcsFMMfFFhFp
+jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL
+PmmdzqPrVvPwwTWBwg
+wMqvLMZHhHMvwLHjbvcjnnSBnvTQFn
+ttgJtRGJQctTZtZT
+CrZsJsPPZsGzwwsLwLmpwMDw";
+
+    #[test]
+    fn test_part_one() {
+        let expected_value = 157;
+        assert_eq!(solve_part_1(EXAMPLE_INPUT), expected_value)
+    }
+
+    #[test]
+    fn test_part_two() {
+        let expected_value = 70;
+        assert_eq!(solve_part_2(EXAMPLE_INPUT), expected_value)
+    }
+}
