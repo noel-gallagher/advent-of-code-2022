@@ -36,17 +36,21 @@ fn create_day(input: &str) -> Box<dyn Day> {
     }
 }
 
+pub fn solve_single_day(day: &str) {
+    let a = create_day(day);
+
+    let path_to_input = get_file_path(day);
+    let input_file = get_input(path_to_input);
+    let solution_for_part_1 = a.solve_part_one(&input_file);
+    let solution_for_part_2 = a.solve_part_two(&input_file);
+    println!("{} - Part 1: {}", day, solution_for_part_1);
+    println!("{} - Part 2: {}", day, solution_for_part_2);
+}
+
 pub fn solve() {
     let days: Vec<&str> = vec!["day_one", "day_two", "day_three", "day_four"];
 
     for day in days {
-        let a = create_day(day);
-
-        let path_to_input = get_file_path(day);
-        let input_file = get_input(path_to_input);
-        let solution_for_part_1 = a.solve_part_one(&input_file);
-        let solution_for_part_2 = a.solve_part_two(&input_file);
-        println!("{} - Part 1: {}", day, solution_for_part_1);
-        println!("{} - Part 2: {}", day, solution_for_part_2);
+        solve_single_day(day)
     }
 }
