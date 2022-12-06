@@ -11,6 +11,8 @@ mod day4;
 pub use day4::DayFour;
 mod day5;
 pub use day5::day5;
+mod day6;
+pub use day6::day6;
 
 fn get_file_path(day_number: &str) -> String {
     "src/days/resources/input_".to_owned() + day_number + ".txt"

@@ -1,5 +1,5 @@
-use std::{env, fs};
 use regex::Regex;
+use std::{env, fs};
 
 fn part_two(mut stacks: Vec<Vec<&str>>, parsed_instructions: Vec<(u32, usize, usize)>) {
     for instruction in parsed_instructions {
@@ -16,7 +16,7 @@ fn part_two(mut stacks: Vec<Vec<&str>>, parsed_instructions: Vec<(u32, usize, us
             stacks[to - 1].push(c);
         }
     }
-    
+
     for stack in stacks {
         println!("{}", stack.last().unwrap());
     }
@@ -25,35 +25,33 @@ fn part_two(mut stacks: Vec<Vec<&str>>, parsed_instructions: Vec<(u32, usize, us
 fn part_one(mut stacks: Vec<Vec<&str>>, parsed_instructions: Vec<(u32, usize, usize)>) {
     for instruction in parsed_instructions {
         let (num_to_move, from, to) = instruction;
-        
+
         for _ in 0..num_to_move {
-            let mut item = stacks[from-1].pop().unwrap();
+            let mut item = stacks[from - 1].pop().unwrap();
             while !item.contains('[') {
-                item = stacks[from-1].pop().unwrap();
+                item = stacks[from - 1].pop().unwrap();
             }
-            stacks[to-1].push(item);
+            stacks[to - 1].push(item);
         }
     }
-    
+
     for stack in stacks {
         println!("{}", stack.last().unwrap());
     }
 }
 
-fn parse_instructions(list_of_unparsed_instructions: &str) -> Vec<(u32, usize, usize)>{
+fn parse_instructions(list_of_unparsed_instructions: &str) -> Vec<(u32, usize, usize)> {
     list_of_unparsed_instructions
         .lines()
-        .map(|line|
-            {
-                let re = Regex::new(r"move (\d+) from (\d+) to (\d+)").unwrap();
-                let instructs = re.captures(line).unwrap();
-                (
-                    instructs.get(1).unwrap().as_str().parse::<u32>().unwrap(),
-                    instructs.get(2).unwrap().as_str().parse::<usize>().unwrap(),
-                    instructs.get(3).unwrap().as_str().parse::<usize>().unwrap()
-                )
-            }
-        )
+        .map(|line| {
+            let re = Regex::new(r"move (\d+) from (\d+) to (\d+)").unwrap();
+            let instructs = re.captures(line).unwrap();
+            (
+                instructs.get(1).unwrap().as_str().parse::<u32>().unwrap(),
+                instructs.get(2).unwrap().as_str().parse::<usize>().unwrap(),
+                instructs.get(3).unwrap().as_str().parse::<usize>().unwrap(),
+            )
+        })
         .collect::<Vec<(u32, usize, usize)>>()
 }
 
@@ -68,8 +66,7 @@ pub fn day5() {
 
     let column = vec![" "; column_size];
     let mut stacks = vec![column; column_size];
-    
-    
+
     // let state = columns.split('\n')
     //     .take(column_size)
     //     .map(|line| line
@@ -78,25 +75,25 @@ pub fn day5() {
     //         .filter(|&(i, c)| c.is_alphabetic())
     //     )
 
-    columns.split('\n')
+    columns
+        .split('\n')
         .take(column_size) // ignores final line with numbers
         .map(|line| {
             for i in 1..column_size {
-                let index = i*4;
-                let item = &line[index-4..index];
-                stacks[i-1].push(item);
+                let index = i * 4;
+                let item = &line[index - 4..index];
+                stacks[i - 1].push(item);
             }
-            let last_item = &line[(column_size*4) - 4..(column_size*4)-1];
-            stacks[column_size-1].push(last_item);
-
+            let last_item = &line[(column_size * 4) - 4..(column_size * 4) - 1];
+            stacks[column_size - 1].push(last_item);
         })
         .for_each(drop);
-    
+
     for stack in stacks.iter_mut() {
         stack.reverse();
     }
-    
+
     let parsed_instructions = parse_instructions(instructions);
-    
-    part_two(stacks, parsed_instructions);
+
+    part_one(stacks, parsed_instructions);
 }
