@@ -12,7 +12,7 @@ pub use day4::DayFour;
 mod day5;
 pub use day5::day5;
 mod day6;
-pub use day6::day6;
+pub use day6::DaySix;
 
 fn get_file_path(day_number: &str) -> String {
     "src/days/resources/input_".to_owned() + day_number + ".txt"
@@ -36,6 +36,7 @@ fn create_day(input: &str) -> Box<dyn Day> {
         "day_two" => Box::new(DayTwo),
         "day_three" => Box::new(DayThree),
         "day_four" => Box::new(DayFour),
+        "day_six" => Box::new(DaySix),
         _ => panic!("Invalid input"),
     }
 }
@@ -52,7 +53,7 @@ pub fn solve_single_day(day: &str) {
 }
 
 pub fn solve() {
-    let days: Vec<&str> = vec!["day_one", "day_two", "day_three", "day_four"];
+    let days: Vec<&str> = vec!["day_one", "day_two", "day_three", "day_four", "day_six"];
 
     for day in days {
         solve_single_day(day)

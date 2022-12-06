@@ -1,15 +1,17 @@
-use std::{env, fs};
+use crate::days::Day;
+use std::collections::HashSet;
 
 const WINDOW_SIZE: usize = 14;
 
-pub fn day6() {
-    let input = "src/days/resources/input_day_six.txt";
-    let file_path = env::current_dir().unwrap().join(input);
+pub struct DaySix;
+impl Day for DaySix {
+    fn solve_part_one(&self, input: &str) -> u32 {
+        part_one(input)
+    }
 
-    let lines = fs::read_to_string(file_path).unwrap();
-
-    println!("{}", part_one(&lines));
-    println!("{}", part_two(&lines, WINDOW_SIZE));
+    fn solve_part_two(&self, input: &str) -> u32 {
+        part_two(input, WINDOW_SIZE) as u32
+    }
 }
 
 fn part_one(lines: &str) -> u32 {
@@ -36,19 +38,10 @@ fn part_one(lines: &str) -> u32 {
 }
 
 fn part_two(lines: &str, win_size: usize) -> usize {
-    let mut index: usize = 0;
-    for (pos, bytes) in lines.as_bytes().windows(win_size).enumerate() {
-        let mut collection: Vec<char> = Vec::new();
-        for b in bytes.iter() {
-            let x = *b as char;
-            if !collection.contains(&x) {
-                collection.push(x);
-            }
-        }
-        if collection.len() == win_size {
-            index = pos + win_size;
-            break;
-        }
-    }
-    index
+    lines
+        .chars()
+        .collect::<Vec<char>>()
+        .windows(win_size)
+        .position(|window| window.iter().collect::<HashSet<&char>>().len() == win_size)
+        .unwrap()
 }
