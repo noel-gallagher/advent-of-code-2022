@@ -40,7 +40,7 @@ fn build_dirs(lines: &str) -> HashMap<String, u32> {
 
     lines
         .split('\n')
-        .fold(HashMap::<String, u32>::new(), | mut dir_sizes, line| {
+        .fold(HashMap::<String, u32>::new(), |mut dir_sizes, line| {
             let (command_or_file, cmd) = line.split_once(' ').unwrap();
             match command_or_file {
                 cof if cof == "$" => {

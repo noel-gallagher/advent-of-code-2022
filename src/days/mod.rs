@@ -17,6 +17,8 @@ mod day7;
 pub use day7::DaySeven;
 mod day8;
 pub use day8::DayEight;
+mod day9;
+pub use day9::DayNine;
 
 fn get_file_path(day_number: &str) -> String {
     "src/days/resources/input_".to_owned() + day_number + ".txt"
@@ -43,6 +45,7 @@ fn create_day(input: &str) -> Box<dyn Day> {
         "day_six" => Box::new(DaySix),
         "day_seven" => Box::new(DaySeven),
         "day_eight" => Box::new(DayEight),
+        "day_nine" => Box::new(DayNine),
         _ => panic!("Invalid input"),
     }
 }
@@ -67,6 +70,7 @@ pub fn solve() {
         "day_six",
         "day_seven",
         "day_eight",
+        "day_nine",
     ];
 
     for day in days {
